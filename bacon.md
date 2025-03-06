@@ -139,3 +139,14 @@ Comments: Nobody’s favorite.
 
 ## Technical Data
 Bacon rating, comments, dates, etc are kept using [FlatNotes](https://github.com/dullage/flatnotes) that's locally hosted. A series of scripts copies the markdown file and images to a different directory. This is done by a cron job. That directory is mapped to a Docker container that hosts this HTML page. This container is exposed to the interwebs using Tailscale. Tailscale keeps my IP hidden. Docker isolates the container. 
+
+## To Documents
+- Create flatnotes document
+- Must create webPublisher and attachments folder
+- Chmod +x baconPublisher.sh
+
+- [] Move baconPublisher.sh to webPublisher folder.
+- [] No need to move mkToHtml.html
+- [] Modify baconPublisher.sh to pull from entire toc/bacon.md path
+- Create Github repo webPublisher
+- Create cron job to check for changes in the directory and push to git 
