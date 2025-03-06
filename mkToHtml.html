@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown with Bootstrap</title>
+    
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"/>
+    
+    <!-- Include marked.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Honk&display=swap&family=Sixtyfour+Convergence:BLED@37&display=swap" rel="stylesheet">
+    
+
+    <style>
+        .honk-H1 {
+            font-family: "Honk", serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+            font-variation-settings:
+            "MORF" 15,
+            "SHLN" 50;
+        }
+
+        img {
+            width: 80%;
+            object-fit: contain;
+            /* or
+            object-fit: cover; */
+        } 
+
+        h1 {
+            text-align: center;
+            
+            font-family: "Sixtyfour Convergence", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 600;
+            font-style: normal;
+            font-variation-settings:
+                "BLED" 37,
+                "SCAN" 0,
+                "XELA" 0,
+                "YELA" 0;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div id="content" class="container mt-5 w-75"></div>
+
+<script>
+    console.log("Starting conversion")
+
+    //Define document name
+    const docs = "bacon.md"
+
+    //Use Async function to keep the file from loading before parsing
+    async function fetchDocument() {
+        let file = await fetch(docs);
+        let markdownContent = await file.text()
+
+        //Tell marked to use renderer
+        marked.use({ renderer });
+
+        // Parse markdown and render
+        const parsedContent = marked.parse(markdownContent, options);
+
+        // DOM update
+        document.getElementById('content').innerHTML = parsedContent;
+
+        //Wrap H2 with a div - Add classes here! 
+        wrapH2WithDiv(classes="border rounded-3 mb-3 mt-5 p-2 shadow bg-warning")
+
+        //Update image formatting
+        imageFormat(classes="rounded mt-3")
+    }
+
+    // Configure marked options (optional)
+    const options = {
+        breaks: true,
+        gfm: true
+    };
+    
+    /*
+    Use Renderer to adjust while convering
+     - heading 1: Need to make adjustments
+     - heading 2: Need to make adjustments
+    */
+    const renderer = {
+        heading({ tokens, depth }) {
+            const text = this.parser.parseInline(tokens);
+
+            if (depth == 1){
+                return `
+                        <h${depth} class="border rounded-3 mb-1 p-2 shadow bg-danger display-3">
+                            ${text}
+                        </h${depth}>`;
+            }
+
+            if (depth == 2){
+                return `
+                        <h${depth} class="p-1 honk-H1">
+                            ${text}
+                        </h${depth}>`;
+            }
+        },
+
+        paragraph( {tokens, depth} ){
+            const text = this.parser.parseInline(tokens);
+
+            //Empty string to hold HTML that is generated
+            htmlOut = "<p>";
+            //const regex = /([a-zA-Z]+): (.+?)<br>/g;
+            const regexDate = /(?<date>Dates?): (.+?)<br>/;
+            const regexRating = /(?<date>Rating?): (.+?)<br>/;
+            const regexOverall = /(?<date>Overall?): (.+?)<br>/;
+            const regexCooked = /(?<date>Cooked?): (.+?)<br>/;
+            const regexComments = /(?<date>Comments?): (.+?)<br>/;
+            
+            const matchDate = text.match(regexDate);
+            if(matchDate) {
+                htmlOut += `<span class="badge text-bg-success">${matchDate[1]}</span> <small>${matchDate[2]}</small><br>`
+            }
+            
+            const matchRating = text.match(regexRating);
+            if(matchRating) {
+                htmlOut += `<span class="badge text-bg-primary">${matchRating[1]}</span> <small>${matchRating[2]}</small><br>`
+            }
+
+            const matchOverall = text.match(regexOverall);
+            if(matchOverall) {
+                htmlOut += `<span class="badge text-bg-danger">${matchOverall[1]}</span> <small>${matchOverall[2]}</small><br>`
+            }
+
+            const matchCooked = text.match(regexCooked);
+            if(matchCooked) {
+                htmlOut += `<span class="badge text-bg-info">${matchCooked[1]}</span> <small>${matchCooked[2]}</small><br>`
+            }
+
+            const matchComments = text.match(regexComments);
+            if(matchComments) {
+                htmlOut += `<span class="badge text-bg-light">${matchComments[1]}</span> <small>${matchComments[2]}</small><br>`
+            }
+
+            //Removing all Regexs shall leave just the image
+            let image = removeAllMatches(text, [regexDate, regexRating, regexOverall, regexOverall, regexCooked, regexComments]);
+            
+            htmlOut += image
+            htmlOut += `</p>`
+            return htmlOut
+        }
+    };
+
+    //Remove any formatting and return whatever text is left. For rating and such, it'll just be the images.
+    // For anything else, it should just be the text.
+    function removeAllMatches(str, regexes, replacement = "") {
+        const combinedRegex = new RegExp(regexes.map(regex => regex.source).join('|'), 'g');
+        return str.replace(combinedRegex, replacement);
+    }
+
+    /*
+    This post processes the HTML. Adds a div to enclose H2 and Text
+    */
+    function wrapH2WithDiv(classes) {
+        
+        const h2Elements = document.querySelectorAll('h2');
+        
+        h2Elements.forEach(h2 => {
+        const nextSibling = h2.nextSibling;
+    
+        if (nextSibling && nextSibling.nodeType === Node.TEXT_NODE && nextSibling.nodeValue.trim() !== '') {
+            const div = document.createElement('div');
+            div.classList += classes;
+            h2.parentNode.insertBefore(div, h2);
+            div.appendChild(h2);
+            div.appendChild(nextSibling);
+        } else if (nextSibling && nextSibling.nodeType === Node.ELEMENT_NODE) {
+            const div = document.createElement('div');
+            div.classList += classes;
+            h2.parentNode.insertBefore(div, h2);
+            div.appendChild(h2);
+            div.appendChild(nextSibling);
+        }
+        });
+    }
+
+    function imageFormat(classes) {
+        const imgElements = document.querySelectorAll('img');
+        
+        imgElements.forEach(img => {
+            img.className += classes;
+        });
+
+    }
+
+    //Load file & kick off process
+    fetchDocument()
+
+    
+
+    
+</script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"></script>
+
+</body>
+</html>
