@@ -15,7 +15,7 @@ if git status --porcelain | grep -q .; then
     git commit -m "Automated commit: $(date +%Y-%m-%d_%H:%M:%S)"
 
     # Push changes to the remote repository (assumes your remote is named "origin")
-    git push origin main  # or whatever branch you're using
+    git push master main  # or whatever branch you're using
 
     echo "Changes committed and pushed successfully!"
 else

@@ -148,5 +148,5 @@ Bacon rating, comments, dates, etc are kept using [FlatNotes](https://github.com
 - [] Move baconPublisher.sh to webPublisher folder.
 - [] No need to move mkToHtml.html
 - [] Modify baconPublisher.sh to pull from entire toc/bacon.md path
-- Create Github repo webPublisher
-- Create cron job to check for changes in the directory and push to git 
+- [] Create Github repo webPublisher
+- [] Create cron job to check for changes in the directory and push to git 
