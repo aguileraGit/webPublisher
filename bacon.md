@@ -1,13 +1,7 @@
 # Bacon Binge
-Welcome to Bacon Binge! 🥓 Your one-stop shop for grocery outlet bacon reviews. Because life’s too short for expensive bacon! Let’s see if those budget-friendly slices are worth the price—or if they’re just a slice of heaven in disguise! (Thanks AI)
 
-This site is basically sponsored by the United Grocery Outlet. Where bacon is usually $3. 
-
-Hormel and Oscar Mayer were the highest rated. Should out to Walmart and (again) Hormel (low sodium). 
-
-Take ratings with a drop of grease. This is the most informal rating system ever. Our family of 5 all get a say in this. Three of us are under 10 years old. 
-
-At the end of the day… the best bacon is the one right in front of you. Unless you’re Garnet Valley. 
+##
+Welcome to Bacon Binge! 🥓 Your one-stop shop for grocery outlet bacon reviews. Because life’s too short for expensive bacon! Let’s see if those budget-friendly slices are worth the price—or if they’re just a slice of heaven in disguise! (Thanks AI) This site is basically sponsored by the United Grocery Outlet. Where bacon is usually $3. Hormel and Oscar Mayer were the highest rated. Should out to Walmart and (again) Hormel (low sodium). Take ratings with a drop of grease. This is the most informal rating system ever. Our family of 5 all get a say in this. Three of us are under 10 years old. At the end of the day… the best bacon is the one right in front of you. Unless you’re Garnet Valley. 
 
 ## Wellshire
 Dates: 11 May 24, 18 Jan 25, 2 Mar 25
@@ -122,12 +116,13 @@ Cooked: Cast Iron pan
 Comments: Nobody’s favorite. 
 ![IMG_6993.jpeg](attachments/IMG_6993.jpeg)
 
+## Technical Data
+Bacon rating, comments, dates, etc are kept using [FlatNotes](https://github.com/dullage/flatnotes) that's locally hosted. One scripts copies the markdown file and images to a different directory. See [Github Repo](https://github.com/aguileraGit/webPublisher). A second script checks for changes in the directory and pushes them to the Github repo. Finally Netlify detects any changes in the Repo and updates the webpage. A cronjob runs these scripts daily.
 
-## Things to add before publishing
-- [ ] Remove this
+## Things to do one day but honestly never get around to it.
 - [x] H1 for a description
 - [x] Remove publishing note at the end
-- [ ] Find annoying bacon background (repeating SVG)
+- [x] Find annoying bacon background (repeating SVG)
 - [x] Bold text before :. Use regex with text? -> Add class
 - [x] Pull images to the right and smaller. Inline with text.
 - [x] Maybe an 8-bit font for text
@@ -138,13 +133,3 @@ Comments: Nobody’s favorite.
 - [ ] Look at why comments don't always work
 - [ ] Add Footer
 - [ ] Add analytics (number of bacon rated, best bacon, times rated)
-
-## Technical Data
-Bacon rating, comments, dates, etc are kept using [FlatNotes](https://github.com/dullage/flatnotes) that's locally hosted. A series of scripts copies the markdown file and images to a different directory. This is done by a cron job. That directory is mapped to a Docker container that hosts this HTML page. This container is exposed to the interwebs using Tailscale. Tailscale keeps my IP hidden. Docker isolates the container. 
-
-## To Documents
-- [] Move baconPublisher.sh to webPublisher folder.
-- [] No need to move mkToHtml.html
-- [] Modify baconPublisher.sh to pull from entire toc/bacon.md path
-- [] Create Github repo webPublisher
-- [] Create cron job to check for changes in the directory and push to git 

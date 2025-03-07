@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Markdown with Bootstrap</title>
+    <title>Bacon Binge!</title>
     
     <!-- Include Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"/>
@@ -49,10 +49,28 @@
                 "YELA" 0;
         }
 
+        svg {
+            width: 200px;
+            height: 200px;
+        }
+
+        .svg-repeating-background {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            background-size: 200px 200px;
+            background-image: url('https://www.svgrepo.com/show/395842/bacon.svg');
+            background-position: center;
+            top: 0;
+            left: 0;
+            z-index: -999999;
+        }
+
     </style>
 
 </head>
 <body>
+<div class="svg-repeating-background"></div>
 
 <div id="content" class="container mt-5 w-75"></div>
 
