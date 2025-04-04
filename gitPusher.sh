@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "$(date '+%Y-%m-%d %H:%M:%S') INFO: Starting gitPusher.sh"
+
 # Set the repository path (update this to your actual path)
 REPO_PATH="."
 
@@ -17,7 +19,9 @@ if git status --porcelain | grep -q .; then
     # Push changes to the remote repository (assumes your remote is named "origin")
     git push origin master  # or whatever branch you're using
 
-    echo "Changes committed and pushed successfully!"
+    #echo "Changes committed and pushed successfully!"
+    echo "$(date '+%Y-%m-%d %H:%M:%S') INFO: Changes committed and pushed successfully!"
 else
-    echo "No changes detected. Nothing to commit."
+    #echo "No changes detected. Nothing to commit."
+    echo "$(date '+%Y-%m-%d %H:%M:%S') INFO: No changes detected. Nothing to commit."
 fi

@@ -1,7 +1,9 @@
 #!/bin/bash
 
+echo "$(date '+%Y-%m-%d %H:%M:%S') INFO: Starting baconPublisher.sh"
+
 # Copy bacon.md from toc
-cp "../toc/bacon.md" bacon.md
+cp "/home/diegoaguilera/Projects/toc/bacon.md" bacon.md
 
 
 # Find all images in bacon.md with the extension .jpeg
@@ -10,5 +12,6 @@ images=$(grep -oP 'IMG.*?\.(jpeg|jpg)' bacon.md)
 
 # Copy all images to ../webPublisher
 for image in $images; do
-  cp "../toc/attachments/$image" "attachments/$image"
+  cp "/home/diegoaguilera/Projects/toc/attachments/$image" "/home/diegoaguilera/Projects/webPublisher/attachments/$image"
+
 done

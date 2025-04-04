@@ -4,7 +4,7 @@
 Welcome to Bacon Binge! 🥓 Your one-stop shop for grocery outlet bacon reviews. Because life’s too short for expensive bacon! Let’s see if those budget-friendly slices are worth the price—or if they’re just a slice of heaven in disguise! (Thanks AI). This site is basically sponsored by the United [Grocery Outlet](https://www.google.com/maps/place/United+Grocery+Outlet/@35.0870531,-85.1910424,16z/data=!3m1!4b1!4m6!3m5!1s0x88606227969aa081:0x9d1f29897fa32cc8!8m2!3d35.0870487!4d-85.1884675!16s%2Fg%2F1t_kh7tz?entry=ttu&g_ep=EgoyMDI1MDMwNC4wIKXMDSoASAFQAw%3D%3D). Where bacon is usually under $4! Hormel and Oscar Mayer were the highest rated. Should out to Walmart and (again) Hormel (low sodium) for also providing solid bacon. Take ratings with a drop of grease. This is the most informal rating system ever. Our family of 5 all get a say in this. Three of us are under 10 years old. At the end of the day… the best bacon is the one right in front of you. Unless you’re Garnet Valley, then it's meh.
 
 ## Wellshire
-Dates: 11 May 24, 18 Jan 25, 2 Mar 25
+Dates: 11 May 24, 18 Jan 25, 2 Mar 25, 23 Mar 25
 Rating: 4/5
 Overall: Thumbs Up
 Cooked: Cast iron and stainless steel pan
@@ -36,9 +36,9 @@ Comments: Just Ok on saltiness. Pieces didn’t shrink too much, but were kind o
 ![IMG_5670.jpeg](/attachments/IMG_5670.jpeg)
 
 ## Jimmy Dean Hickory Smoked Premium Bacon 
-Dates: 15 July 2024, 21 Jul 24
+Dates: 15 July 2024, 21 Jul 24, 9 Mar 25
 Rating: 4/5
-Overall: Thumbs Upcontain
+Overall: Thumbs Up
 Cooked: Griddle on grill
 Comments: Good saltiness. Didn’t shrink when cooked. Nice and crispy. Not tough. Nice color. Could have used more smokiness. 
 ![IMG_5721.jpeg](/attachments/IMG_5721.jpeg)
