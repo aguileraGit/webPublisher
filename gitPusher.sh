@@ -3,7 +3,7 @@
 echo "$(date '+%Y-%m-%d %H:%M:%S') INFO: Starting gitPusher.sh"
 
 # Set the repository path (update this to your actual path)
-REPO_PATH="."
+REPO_PATH="/home/diegoaguilera/Projects/webPublisher/"
 
 # Change directory to the repository
 cd "$REPO_PATH" || exit 1
