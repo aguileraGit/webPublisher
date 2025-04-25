@@ -1,5 +1,6 @@
 # One lazy dog
 
+### A poem [by AI]
 "In the quiet dawn, where sunlight plays,
 Lies Daffy, our lazy dog, in soft morning rays.
 Her head rests gently on a pillow so kind,
@@ -34,6 +35,7 @@ So Daffy's day is filled with gentle ease,
 Exploring objects, finding comfort in peace.
 Though lazy she may be, her charm never wanes,
 In every spot, her presence remains." 
+
 
 ## A Table
 ![IMG_4470.jpeg](attachments/IMG_4470.jpeg)
