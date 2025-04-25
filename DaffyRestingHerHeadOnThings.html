@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daffy Resting Her Head On Things</title>
+    
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"/>
+    
+    <!-- Include marked.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chango&display=swap" rel="stylesheet">
+    
+
+    <style>
+        .heading-H1 {
+        font-family: "Chango", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        text-align: center;
+        }
+
+        img {
+            width: 40%;
+            object-fit: contain;
+            /* or
+            object-fit: cover; */
+        } 
+
+    </style>
+
+</head>
+<body>
+<div class=""></div>
+
+<div id="content" class="container mt-5 w-75"></div>
+
+<script>
+    console.log("Starting conversion")
+
+    //Define document name
+    const docs = "DaffyRestingHerHeadOnThings.md"
+
+    //Create a variable to create carousel when the first picture is parsed ( ## )
+    var createCarousel = true;
+    var imageText = [];
+    var imageSrc = [];
+
+    //Use Async function to keep the file from loading before parsing
+    async function fetchDocument() {
+        let file = await fetch(docs);
+        let markdownContent = await file.text()
+
+        //Tell marked to use renderer
+        marked.use({ renderer });
+
+        // Parse markdown and render
+        const parsedContent = marked.parse(markdownContent, options);
+
+        // DOM update
+        document.getElementById('content').innerHTML = parsedContent;
+
+        //Wrap H2 with a div - Add classes here! 
+        wrapH2WithDiv(classes="border rounded-3 mb-3 mt-5 p-2 shadow bg-warning")
+
+        //Update image formatting
+        imageFormat(classes="rounded mt-3")
+
+        //Populate Carousel
+        var carousel = document.getElementById("carouselInner");
+        addToCarousel(carousel, imageSrc);
+    }
+
+    // Configure marked options (optional)
+    const options = {
+        breaks: true,
+        gfm: true
+    };
+    
+    /*
+    Use Renderer to adjust while convering
+     - heading 1: Page Heading
+     - heading 2: Picture Heading
+    */
+    const renderer = {
+        heading({ tokens, depth }) {
+            const text = this.parser.parseInline(tokens);
+
+            if (depth == 1){
+                return `
+                        <h${depth} class="mb-1 p-2 display-3 heading-H1">
+                            ${text}
+                        </h${depth}>`;
+            }
+
+            if (depth == 2){
+                const text = this.parser.parseInline(tokens);
+                imageText.push(text)
+                
+                //Create Carousel first time around
+                if(createCarousel){
+                    createCarousel = false;
+                    
+                    return `
+                        <div id="imagesCarousel" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner" id="carouselInner">
+                                <div class="carousel-item active">
+                                    <img class="d-block w-100 " src="attachments/IMG_7367.jpeg" alt="First slide">
+                                </div>
+                            </div>
+                        </div>
+                    `
+                }
+            }
+
+        },
+
+        paragraph( {tokens, depth} ){
+            const text = this.parser.parseInline(tokens);
+            
+            /*
+            htmlOut = `<blockquote class="blockquote">
+                <p class="mb-0">${text}</p>
+                <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+            </blockquote>`
+
+            return htmlOut
+            */
+            return text
+        },
+
+        image( {tokens, depth} ){
+            const text = this.parser.parseInline(tokens);
+            imageSrc.push(text)
+        }
+    };
+
+    //Remove any formatting and return whatever text is left. For rating and such, it'll just be the images.
+    // For anything else, it should just be the text.
+    function removeAllMatches(str, regexes, replacement = "") {
+        const combinedRegex = new RegExp(regexes.map(regex => regex.source).join('|'), 'g');
+        return str.replace(combinedRegex, replacement);
+    }
+
+    /*
+    This post processes the HTML. Adds a div to enclose H2 and Text
+    */
+    function wrapH2WithDiv(classes) {
+        
+        const h2Elements = document.querySelectorAll('h2');
+        
+        h2Elements.forEach(h2 => {
+        const nextSibling = h2.nextSibling;
+    
+        if (nextSibling && nextSibling.nodeType === Node.TEXT_NODE && nextSibling.nodeValue.trim() !== '') {
+            const div = document.createElement('div');
+            div.classList += classes;
+            h2.parentNode.insertBefore(div, h2);
+            div.appendChild(h2);
+            div.appendChild(nextSibling);
+        } else if (nextSibling && nextSibling.nodeType === Node.ELEMENT_NODE) {
+            const div = document.createElement('div');
+            div.classList += classes;
+            h2.parentNode.insertBefore(div, h2);
+            div.appendChild(h2);
+            div.appendChild(nextSibling);
+        }
+        });
+    }
+
+    function imageFormat(classes) {
+        const imgElements = document.querySelectorAll('img');
+        
+        imgElements.forEach(img => {
+            img.className += classes;
+        });
+
+    }
+
+    
+    function addToCarousel(carousel, items) {
+        /*
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="d-block w-100" src="..." alt="First slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="..." alt="Second slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="..." alt="Third slide">
+            </div>
+        </div>
+        */
+        
+        for (var i = 0; i < items.length; i++) {
+            var carouselItem = document.createElement("div");
+            carouselItem.classList.add("carousel-item");
+
+            var item = items[i];
+            console.log(item)
+            var itemElement = document.createElement("img");
+            itemElement.src = 'attachments/'+item;
+            itemElement.classList.add("d-block");
+            
+            carouselItem.appendChild(itemElement);
+            carousel.appendChild(carouselItem);
+        }
+    }
+    
+
+    //Load file & kick off process
+    fetchDocument()
+
+    
+
+    
+</script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"></script>
+
+</body>
+</html>
